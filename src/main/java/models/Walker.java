@@ -20,5 +20,8 @@ public class Walker {
     public String getWalkerName() {
         return walkerName;
     }
+    public static ArrayList<Walker> getAll(){
+        return instances;
+    }
 
 }

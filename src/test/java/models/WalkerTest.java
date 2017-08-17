@@ -17,13 +17,27 @@ public class WalkerTest {
 
     @Test
     public void NewWalkerObjectGetsCorrectlyCreates_true() throws Exception {
-        Walker walker = new Walker("Ryan");
+        Walker walker = newWalker();
         assertEquals(true, walker instanceof Walker);
     }
 
     @Test
     public void WalkerInstantiatesWithWalkerName_Ryan() throws Exception {
-        Walker walker = new Walker("Ryan");
+        Walker walker = newWalker();
         assertEquals("Ryan", walker.getWalkerName());
     }
+
+    @Test
+    public void AllWalkerContainsAllWalker_true() {
+        Walker walker = newWalker();
+        Walker otherWalker = newWalker ();
+        assertEquals(true, Walker.getAll().contains(walker));
+        assertEquals(true, Walker.getAll().contains(otherWalker));
+    }
+
+    //helper
+    public Walker newWalker(){
+        return new Walker("Ryan");
+    }
+
 }
