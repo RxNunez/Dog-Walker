@@ -76,7 +76,6 @@ public class WalkerTest {
         assertEquals(0, Walker.getAll().size());
     }
 
-
     public Walker newWalker(){
         return new Walker("Ryan");
     }
