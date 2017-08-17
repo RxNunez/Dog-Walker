@@ -20,4 +20,10 @@ public class WalkerTest {
         Walker walker = new Walker("Ryan");
         assertEquals(true, walker instanceof Walker);
     }
+
+    @Test
+    public void WalkerInstantiatesWithWalkerName_Ryan() throws Exception {
+        Walker walker = new Walker("Ryan");
+        assertEquals("Ryan", walker.getWalkerName());
+    }
 }

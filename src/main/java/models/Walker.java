@@ -7,7 +7,7 @@ public class Walker {
 
     private String walkerName;
     private static ArrayList<Walker> instances = new ArrayList<>();
-    //    private List<WalkerDog> walkerDogs;
+//    private List<WalkerDog> walkerDogs;
     private int id;
 
     public Walker(String walkerName) {
