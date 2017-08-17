@@ -33,4 +33,8 @@ public class Walker {
         return id;
     }
 
+    public static Walker findById(int id){
+        return instances.get(id-1);
+    }
+
 }

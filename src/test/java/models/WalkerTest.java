@@ -43,6 +43,12 @@ public class WalkerTest {
         assertEquals(1, oneWalker.getId());
     }
 
+    @Test
+    public void findById_findReturnsCorrectWalker() throws Exception {
+        Walker testWalker = newWalker();
+        assertEquals(1, Walker.findById(testWalker.getId()).getId());
+    }
+
     public Walker newWalker(){
         return new Walker("Ryan");
     }
