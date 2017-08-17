@@ -36,6 +36,12 @@ public class WalkerTest {
         assertEquals(true, Walker.getAll().contains(otherWalker));
     }
 
+    @Test
+    public void getId_WalkerInstantiateWithAnID_1() throws Exception {
+        Walker.clearAllWalker();
+        Walker oneWalker = newWalker();
+        assertEquals(1, oneWalker.getId());
+    }
 
     public Walker newWalker(){
         return new Walker("Ryan");

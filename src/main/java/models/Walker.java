@@ -29,4 +29,8 @@ public class Walker {
         instances.clear();
     }
 
+    public int getId(){
+        return id;
+    }
+
 }
