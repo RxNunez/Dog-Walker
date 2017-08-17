@@ -49,6 +49,17 @@ public class WalkerTest {
         assertEquals(1, Walker.findById(testWalker.getId()).getId());
     }
 
+    @Test
+    public void updateChangesWalkerWalkerName() throws Exception {
+        Walker walker = newWalker();
+        String formerWalkerName = walker.getWalkerName();
+        int formerId = walker.getId();
+        walker.update("Ryan");
+        assertEquals(formerId, walker.getId());
+        assertNotEquals(formerWalkerName, walker.getWalkerName());
+    }
+
+
     public Walker newWalker(){
         return new Walker("Ryan");
     }

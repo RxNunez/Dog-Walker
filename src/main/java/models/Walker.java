@@ -37,4 +37,8 @@ public class Walker {
         return instances.get(id-1);
     }
 
+    public void update (String walkerName){
+        this.walkerName = walkerName;
+    }
+
 }
