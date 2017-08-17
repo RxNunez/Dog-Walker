@@ -59,6 +59,15 @@ public class WalkerTest {
         assertNotEquals(formerWalkerName, walker.getWalkerName());
     }
 
+    @Test
+    public void deleteDeletesASpecificWalker() throws Exception {
+        Walker walker = newWalker();
+        Walker nextWalker = new Walker("Liam");
+        walker.deleteWalker();
+        assertEquals(1, Walker.getAll().size());
+        assertEquals(Walker.getAll().get(0).getId(), 2);
+    }
+
 
     public Walker newWalker(){
         return new Walker("Ryan");

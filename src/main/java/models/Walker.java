@@ -41,4 +41,8 @@ public class Walker {
         this.walkerName = walkerName;
     }
 
+    public void deleteWalker (){
+        instances.remove(id-1);
+    }
+
 }
