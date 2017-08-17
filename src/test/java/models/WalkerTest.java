@@ -54,7 +54,7 @@ public class WalkerTest {
         Walker walker = newWalker();
         String formerWalkerName = walker.getWalkerName();
         int formerId = walker.getId();
-        walker.update("Ryan");
+        walker.update("Liam");
         assertEquals(formerId, walker.getId());
         assertNotEquals(formerWalkerName, walker.getWalkerName());
     }
@@ -66,6 +66,14 @@ public class WalkerTest {
         walker.deleteWalker();
         assertEquals(1, Walker.getAll().size());
         assertEquals(Walker.getAll().get(0).getId(), 2);
+    }
+
+    @Test
+    public void deleteAllWalkerDeletesAllWalker() throws Exception {
+        Walker walker = newWalker();
+        Walker nextWalker = newWalker();
+        Walker.clearAllWalker();
+        assertEquals(0, Walker.getAll().size());
     }
 
 
