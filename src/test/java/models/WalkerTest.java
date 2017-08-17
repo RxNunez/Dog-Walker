@@ -35,7 +35,7 @@ public class WalkerTest {
         assertEquals(true, Walker.getAll().contains(otherWalker));
     }
 
-    //helper
+
     public Walker newWalker(){
         return new Walker("Ryan");
     }
