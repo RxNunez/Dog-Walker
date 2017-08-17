@@ -13,7 +13,6 @@ public class WalkerTest {
 
     @After
     public void tearDown() throws Exception {
-
     }
 
     @Test
@@ -21,7 +20,4 @@ public class WalkerTest {
         Walker walker = new Walker("Ryan");
         assertEquals(true, walker instanceof Walker);
     }
-
-
-
 }
