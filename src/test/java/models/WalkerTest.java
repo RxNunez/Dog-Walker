@@ -13,6 +13,7 @@ public class WalkerTest {
 
     @After
     public void tearDown() throws Exception {
+        Walker.clearAllWalker();
     }
 
     @Test
