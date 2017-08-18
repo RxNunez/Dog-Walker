@@ -6,14 +6,16 @@ import java.util.List;
 public class Walker {
 
     private String walkerName;
+    private boolean completed;
     private static ArrayList<Walker> instances = new ArrayList<>();
-//    private List<WalkerDog> walkerDogs;
+    private int dogId;
     private int id;
 
     public Walker(String walkerName) {
         this.walkerName = walkerName;
         instances.add(this);
-//        walkerDogs = new ArrayList<WalkerDog>();
+        this.completed = false;
+        this.dogId = dogId;
         this.id = instances.size();
     }
 
