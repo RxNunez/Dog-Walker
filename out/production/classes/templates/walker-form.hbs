@@ -1,0 +1,21 @@
+{{#partial "content"}}
+
+    {{#if editWalker}}
+        <h1>Edit this Walker!</h1>
+        <form action="/walker/{{editWalker.id}}/update" method="walker">
+            <label for="walkerName">Edit this walkers name</label>
+            <input id="walkerName" name="walkerName" type="text" value="{{editWalker.walkerName}}">
+    {{else}}
+
+            <h1>Add a new Walker!</h1>
+
+        <form action="/walker/new" method="walker">
+            <label for="walkerName">Walker Name</label>
+            <input id="walkerName" name="walkerName" type="text">
+    {{/if}}
+        <button type="submit" class="btn btn-default">Add new walker</button>
+    </form>
+
+{{/partial}}
+
+{{> layout.hbs}}

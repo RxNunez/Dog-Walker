@@ -1,0 +1,20 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background: url("../images/walker2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+}
+
+input {
+   color: black;
+}
+
+.well {
+  background-color: #003791;
+}

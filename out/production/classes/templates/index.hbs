@@ -1,0 +1,17 @@
+{{#partial "content"}}
+
+    <h1>Walker List</h1>
+
+    {{#if walker}}
+        {{#each walker}}
+        <div class = "well">
+            <p>{{walker}} <a href="/walker/{{id}}">read more...</a></p>
+        </div>
+        {{/each}}
+    {{else}}
+    <p>No walkers!</p>
+    {{/if}}
+
+{{/partial}}
+
+{{> layout.hbs}}
