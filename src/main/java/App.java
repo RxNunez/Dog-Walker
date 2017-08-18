@@ -18,7 +18,6 @@ public class App {
             return new ModelAndView(model, "walker-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-
         post("/walker/new", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
             String content = request.queryParams("walkerName");
@@ -27,14 +26,12 @@ public class App {
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
-
         get("/", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
             ArrayList<Walker> walker = Walker.getAll();
             model.put("walker", walker);
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
-
 
         get("/walker/:id", (request, response) ->  {
             Map<String, Object> model = new HashMap<>();
@@ -43,7 +40,6 @@ public class App {
             model.put("walker", foundWalker);
             return new ModelAndView(model, "walker-detail.hbs");
         }, new HandlebarsTemplateEngine());
-
 
         get("/walker/:id/update", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
@@ -59,6 +55,14 @@ public class App {
             int idOfWalkerToEdit = Integer.parseInt(request.params("id"));
             Walker editWalker = Walker.findById(idOfWalkerToEdit);
             editWalker.update(newContent);
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/walker/:id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfWalkerToDelete = Integer.parseInt(req.params("id"));
+            Walker deleteWalker = Walker.findById(idOfWalkerToDelete);
+            deleteWalker.deleteWalker();
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
