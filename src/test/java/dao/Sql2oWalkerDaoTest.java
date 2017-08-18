@@ -1,3 +1,11 @@
+package models;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
 public class Sql2oWalkerDaoTest {
 
     private Sql2oWalkerDao walkerDao;
@@ -16,5 +24,27 @@ public class Sql2oWalkerDaoTest {
     public void tearDown() throws Exception {
         conn.close();
     }
+
+    @Test
+    public void addingCourseSetsId() throws Exception {
+        Walker walker = new Walker ();
+        int originalWalkerId = walker.getId();
+        walkerDao.add(walker);
+        assertNotEquals(originalWalkerId, walker.getId());
+    }
+
+    @Test
+    public void existingWalkersCanBeFoundById() throws Exception {
+        Walker walker = new Walker ();
+        walkerDao.add(walker);
+        Walker foundWalker = walkerDao.findById(walker.getId());
+        assertEquals(walker, foundWalker);
+    }
+
+
+    //helper methods
+    public Walker setupNewWalker(){
+        return new Walker("Ryan");
+
 
 }
