@@ -44,5 +44,14 @@ public class App {
             return new ModelAndView(model, "walker-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
+
+        get("/walker/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfWalkerToEdit = Integer.parseInt(request.params("id"));
+            Walker editWalker = Walker.findById(idOfWalkerToEdit);
+            model.put("editWalker", editWalker);
+            return new ModelAndView(model, "walker-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
     }
 }
