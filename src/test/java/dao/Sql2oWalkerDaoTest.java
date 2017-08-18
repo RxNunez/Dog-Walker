@@ -36,6 +36,7 @@ public class Sql2oWalkerDaoTest {
         assertNotEquals(originalWalkerId, walker.getId());
     }
 
+
     @Test
     public void existingWalkersCanBeFoundById() throws Exception {
         Walker walker = new Walker("Ryan");
@@ -53,6 +54,14 @@ public class Sql2oWalkerDaoTest {
 
     @Test
     public void noWalkerReturnsEmptyList() throws Exception {
+        assertEquals(0, walkerDao.getAll().size());
+    }
+
+    @Test
+    public void deleteByIdDeletesCorrectWalker() throws Exception {
+        Walker walker = new Walker("Ryan");
+        walkerDao.add(walker);
+        walkerDao.deleteWalkerById(walker.getId());
         assertEquals(0, walkerDao.getAll().size());
     }
 

@@ -62,7 +62,7 @@ public class Sql2oWalkerDao implements WalkerDao {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteWalkerById(int id) {
         String sql = "DELETE from walker WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)

@@ -20,7 +20,7 @@ public interface WalkerDao {
     void update(int id, String walkerName);
 
     //delete
-    void deleteById(int id);
+    void deleteWalkerById(int id);
 
     //clearAll
     void clearAllWalker();
