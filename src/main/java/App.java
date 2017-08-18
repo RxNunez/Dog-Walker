@@ -53,5 +53,14 @@ public class App {
             return new ModelAndView(model, "walker-form.hbs");
         }, new HandlebarsTemplateEngine());
 
+        post("/walker/:id/update", (request,response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String newContent = request.queryParams("walkerName");
+            int idOfWalkerToEdit = Integer.parseInt(request.params("id"));
+            Walker editWalker = Walker.findById(idOfWalkerToEdit);
+            editWalker.update(newContent);
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
     }
 }
