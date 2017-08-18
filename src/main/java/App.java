@@ -27,5 +27,13 @@ public class App {
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
+
+        get("/", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            ArrayList<Walker> walker = Walker.getAll();
+            model.put("walker", walker);
+            return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
     }
 }
