@@ -51,6 +51,11 @@ public class Sql2oWalkerDaoTest {
         assertEquals(1, walkerDao.getAll().size());
     }
 
+    @Test
+    public void noWalkerReturnsEmptyList() throws Exception {
+        assertEquals(0, walkerDao.getAll().size());
+    }
+
 
     //helper methods
     public Walker setupNewWalker() {
