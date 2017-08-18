@@ -35,5 +35,14 @@ public class App {
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
+
+        get("/walker/:id", (request, response) ->  {
+            Map<String, Object> model = new HashMap<>();
+            int idOfPostToFind = Integer.parseInt(request.params("id"));
+            Walker foundWalker = Walker.findById(idOfPostToFind);
+            model.put("walker", foundWalker);
+            return new ModelAndView(model, "walker-detail.hbs");
+        }, new HandlebarsTemplateEngine());
+
     }
 }
