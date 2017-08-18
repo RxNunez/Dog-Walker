@@ -17,5 +17,15 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "walker-form.hbs");
         }, new HandlebarsTemplateEngine());
+
+
+        post("/walker/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            String content = request.queryParams("walkerName");
+            Walker newWalker = new Walker(content);
+            model.put("walker", newWalker);
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
     }
 }
