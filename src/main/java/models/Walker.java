@@ -42,7 +42,7 @@ public class Walker {
         return result;
     }
 
-    public String getwalkerName() {
+    public String getWalkerName() {
         return this.walkerName;
     }
 
