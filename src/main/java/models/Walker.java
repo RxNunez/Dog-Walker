@@ -7,16 +7,13 @@ public class Walker {
 
     private String walkerName;
     private boolean completed;
-    private static ArrayList<Walker> instances = new ArrayList<>();
     private int dogId;
     private int id;
 
     public Walker(String walkerName) {
         this.walkerName = walkerName;
-        instances.add(this);
         this.completed = false;
         this.dogId = dogId;
-        this.id = instances.size();
     }
 
     public String getWalkerName() {
