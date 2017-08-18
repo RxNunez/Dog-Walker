@@ -44,6 +44,13 @@ public class Sql2oWalkerDaoTest {
         assertEquals(walker, foundWalker);
     }
 
+    @Test
+    public void addedWalkersAreReturnedFromGetAll() throws Exception {
+        Walker walker = new Walker("Ryan");
+        walkerDao.add(walker);
+        assertEquals(1, walkerDao.getAll().size());
+    }
+
 
     //helper methods
     public Walker setupNewWalker() {
