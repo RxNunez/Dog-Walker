@@ -13,6 +13,13 @@ public class App {
     public static void main(String[] args) {
         staticFileLocation("/public");
 
+
+        get("/walker/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            Walker.clearAllWalker();
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
+
         get("/walker/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "walker-form.hbs");
