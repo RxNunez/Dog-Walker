@@ -95,6 +95,14 @@ public class Sql2oDogDaoTest {
         assertNotEquals(initialBreed, updatedDog.getBreed());
     }
 
+    @Test
+    public void walkerIdIsReturnedCorrectly() throws Exception {
+        Dog dog = setupNewDog();
+        int originalWalkerId = dog.getWalkerId();
+        dogDao.add(dog);
+        assertEquals(originalWalkerId, dogDao.findById(dog.getId()).getWalkerId());
+    }
+
         //helper methods
     public Dog setupNewDog() {
         return new Dog("Pudgy","Pitbull","Brindle",1);
