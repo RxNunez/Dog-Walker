@@ -22,7 +22,7 @@ public class Dog {
 
         Dog dog = (Dog) o;
 
-        if (id != Dog.id) return false;
+        if (id != dog.id) return false;
         if (walkerId != dog.walkerId) return false;
         if (dogName != null ? !dogName.equals(dog.dogName) : dog.dogName != null) return false;
         if (breed != null ? !breed.equals(dog.breed) : dog.breed != null) return false;

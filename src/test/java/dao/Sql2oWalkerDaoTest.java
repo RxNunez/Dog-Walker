@@ -81,7 +81,5 @@ public class Sql2oWalkerDaoTest {
     //helper methods
     public Walker setupNewWalker() {
         return new Walker("Ryan");
-
-
     }
 }

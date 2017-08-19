@@ -1,17 +1,14 @@
 package dao;
 
 import models.Dog;
-import models.Walker;
+
 
 import java.util.List;
 
 public interface DogDao {
 
-
-    public interface DogDao {
-
-        //create
-        void add(Dog walker);
+         //create
+        void add(Dog dog);
 
         //read
         List<Dog> getAll();
@@ -28,4 +25,4 @@ public interface DogDao {
         //clearAll
         void clearAllDog();
     }
-}
+

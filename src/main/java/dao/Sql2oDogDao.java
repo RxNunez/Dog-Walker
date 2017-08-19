@@ -1,14 +1,13 @@
 package dao;
 
 import models.Dog;
-import models.Walker;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
 import java.util.List;
 
-public class Sql2oDogDao {
+public class Sql2oDogDao implements DogDao{
 
     private final Sql2o sql2o;
 
@@ -18,17 +17,17 @@ public class Sql2oDogDao {
 
     @Override
     public void add(Dog dog) {
-        String sql = "INSERT INTO weed (dogname, breed, color, walkerId) VALUES (:dogname, :breed, :color, :walkerid)";
+        String sql = "INSERT INTO dog (dogname, breed, color, walkerid) VALUES (:dogname, :breed, :color, :walkerid)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql)
                     .addParameter("dogname", dog.getDogName())
                     .addParameter("breed", dog.getBreed())
                     .addParameter("color", dog.getColor())
-                    .addParameter("walkerId", dog.getWalkerId())
+                    .addParameter("walkerid", dog.getWalkerId())
                     .addColumnMapping("DOGNAME", "dogname")
                     .addColumnMapping("BREED", "breed")
                     .addColumnMapping("COLOR", "color")
-                    .addColumnMapping("WALKERID", "walkerId")
+                    .addColumnMapping("WALKERID", "walkerid")
                     .executeUpdate()
                     .getKey();
             dog.setId(id);
@@ -51,6 +50,45 @@ public class Sql2oDogDao {
             return con.createQuery("SELECT * FROM dog WHERE id = :id")
                     .addParameter("id", id) //key/value pair, key must match above
                     .executeAndFetchFirst(Dog.class); //fetch an individual item
+        }
+    }
+
+    @Override
+    public void update(int id, String newDogName, String newBreed, String newColor, int newWalkerId){
+        String sql = "UPDATE dog SET (dogname, breed, color, walkerId) = (:dogname, :breed, :color, :walkerid) WHERE id=:id";
+        try(Connection con = sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("dogname", newDogName)
+                    .addParameter("breed", newBreed)
+                    .addParameter("color", newColor)
+                    .addParameter("walkerid", newWalkerId)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    @Override
+    public void deleteDogById(int id) {
+        String sql = "DELETE from dog WHERE id=:id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+    }
+
+    @Override
+    public void clearAllDog() {
+        String sql = "DELETE from dog";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println(ex);
         }
     }
 }
