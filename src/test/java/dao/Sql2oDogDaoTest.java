@@ -59,6 +59,11 @@ public class Sql2oDogDaoTest {
         Assert.assertEquals(1, dogDao.getAll().size());
     }
 
+    @Test
+    public void noDogReturnsEmptyList() throws Exception {
+        Assert.assertEquals(0, dogDao.getAll().size());
+    }
+
     //helper methods
     public Dog setupNewDog() {
         return new Dog("Pudgy","Pitbull","Brindle",1);
