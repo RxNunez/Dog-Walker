@@ -1,6 +1,7 @@
 package dao;
 
 import models.Walker;
+import models.Dog;
 
 import java.util.List;
 
