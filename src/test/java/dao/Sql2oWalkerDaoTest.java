@@ -65,7 +65,6 @@ public class Sql2oWalkerDaoTest {
         assertEquals(0, walkerDao.getAll().size());
     }
 
-    @Test
     public void clearAllClearsAll() throws Exception {
         Walker walker = setupNewWalker();
         Walker otherWalker = new Walker("Hogs");
@@ -73,7 +72,7 @@ public class Sql2oWalkerDaoTest {
         walkerDao.add(otherWalker);
         int daoSize = walkerDao.getAll().size();
         walkerDao.clearAllWalker();
-        assertTrue(daoSize > 0 && daoSize > walkerDao.getAll().size()); //this is a little overcomplicated, but illustrates well how we might use `assertTrue` in a different way.
+        assertTrue(daoSize > 0 && daoSize > walkerDao.getAll().size());
     }
 
 

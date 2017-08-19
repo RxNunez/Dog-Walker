@@ -65,7 +65,7 @@ public class Sql2oDogDaoTest {
     }
 
     @Test
-    public void deleteByIdDeletesCorrectWalker() throws Exception {
+    public void deleteByIdDeletesCorrectDog() throws Exception {
         Dog dog = new Dog("Pudgy","Pitbull","Brindle",1);
         int originalDogId = dog.getId();
         dogDao.add(dog);
@@ -73,7 +73,18 @@ public class Sql2oDogDaoTest {
         Assert.assertEquals(0, dogDao.getAll().size());
     }
 
-    //helper methods
+    @Test
+    public void clearAllClearsAll() throws Exception {
+        Dog dog = setupNewDog();
+        Dog otherDog = new Dog("Pheonix", "German Sheppard", "BlackBrown", 2);
+        dogDao.add(dog);
+        dogDao.add(otherDog);
+        int daoSize = dogDao.getAll().size();
+        dogDao.clearAllDog();
+        assertTrue(daoSize > 0 && daoSize > dogDao.getAll().size());
+    }
+
+        //helper methods
     public Dog setupNewDog() {
         return new Dog("Pudgy","Pitbull","Brindle",1);
 
