@@ -42,8 +42,8 @@
 //
 //        get("/walker/:id", (request, response) ->  {
 //            Map<String, Object> model = new HashMap<>();
-//            int idOfPostToFind = Integer.parseInt(request.params("id"));
-//            Walker foundWalker = Walker.findById(idOfPostToFind);
+//            int idOfWalkerToFind = Integer.parseInt(request.params("id"));
+//            Walker foundWalker = Walker.findById(idOfWalkerToFind);
 //            model.put("walker", foundWalker);
 //            return new ModelAndView(model, "walker-detail.hbs");
 //        }, new HandlebarsTemplateEngine());
@@ -58,10 +58,10 @@
 //
 //        post("/walker/:id/update", (request,response) -> {
 //            Map<String, Object> model = new HashMap<>();
-//            String newContent = request.queryParams("walkerName");
+//            String newWalkerName = request.queryParams("walkerName");
 //            int idOfWalkerToEdit = Integer.parseInt(request.params("id"));
 //            Walker editWalker = Walker.findById(idOfWalkerToEdit);
-//            editWalker.update(newContent);
+//            editWalker.update(newWalkerName);
 //            return new ModelAndView(model, "success.hbs");
 //        }, new HandlebarsTemplateEngine());
 //

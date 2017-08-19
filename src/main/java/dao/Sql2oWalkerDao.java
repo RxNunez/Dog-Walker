@@ -1,5 +1,6 @@
 package dao;
 
+import models.Dog;
 import models.Walker;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -38,6 +39,16 @@ public class Sql2oWalkerDao implements WalkerDao {
                     .executeAndFetch(Walker.class);
         }
     }
+
+    @Override
+    public List<Dog> getAllDogByWalker(int walkerId) {
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM dog WHERE walkerId = :walkerid")
+                    .addParameter("walkerid", walkerId)
+                    .executeAndFetch(Dog.class);
+        }
+    }
+
 
     @Override
     public Walker findById(int id) {
@@ -84,4 +95,5 @@ public class Sql2oWalkerDao implements WalkerDao {
             System.out.println(ex);
         }
     }
+
 }
