@@ -84,6 +84,17 @@ public class Sql2oDogDaoTest {
         assertTrue(daoSize > 0 && daoSize > dogDao.getAll().size());
     }
 
+    @Test
+    public void updateChangesDogContent() throws Exception {
+        String initialBreed = "Lab";
+        Dog dog = new Dog ("Boss",initialBreed,"Black",1);
+        dogDao.add(dog);
+
+        dogDao.update(1, "", "", "", 1);
+        Dog updatedDog = dogDao.findById(dog.getId());
+        assertNotEquals(initialBreed, updatedDog.getBreed());
+    }
+
         //helper methods
     public Dog setupNewDog() {
         return new Dog("Pudgy","Pitbull","Brindle",1);
