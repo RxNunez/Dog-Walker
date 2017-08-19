@@ -4,6 +4,7 @@ package dao;
 import models.Dog;
 import models.Walker;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.sql2o.Connection;
@@ -39,6 +40,15 @@ public class Sql2oDogDaoTest {
         int originalDogId = dog.getId();
         dogDao.add(dog);
         assertNotEquals(originalDogId, dog.getId());
+    }
+
+    @Test
+    public void existingDogsCanBeFoundById() throws Exception {
+        Dog dog = new Dog("Pudgy","Pitbull","Brindle",1);
+        int originalDogId = dog.getId();
+        dogDao.add(dog);
+        Dog foundDog = dogDao.findById(dog.getId());
+        Assert.assertEquals(dog, foundDog);
     }
 
     //helper methods
