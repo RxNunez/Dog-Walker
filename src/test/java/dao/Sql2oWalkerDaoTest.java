@@ -1,7 +1,6 @@
 package dao;
 
 import models.Walker;
-import models.Dog;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,11 +8,10 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.*;
+
 
 public class Sql2oWalkerDaoTest {
 
@@ -37,7 +35,7 @@ public class Sql2oWalkerDaoTest {
 
     @Test
     public void addingCourseSetsId() throws Exception {
-        Walker walker = new Walker("Ryan");
+        Walker walker = new Walker("Ryan",1);
         int originalWalkerId = walker.getId();
         walkerDao.add(walker);
         assertNotEquals(originalWalkerId, walker.getId());
@@ -46,7 +44,7 @@ public class Sql2oWalkerDaoTest {
 
     @Test
     public void existingWalkersCanBeFoundById() throws Exception {
-        Walker walker = new Walker("Ryan");
+        Walker walker = new Walker("Ryan",1);
         walkerDao.add(walker);
         Walker foundWalker = walkerDao.findById(walker.getId());
         assertEquals(walker, foundWalker);
@@ -54,7 +52,7 @@ public class Sql2oWalkerDaoTest {
 
     @Test
     public void addedWalkersAreReturnedFromGetAll() throws Exception {
-        Walker walker = new Walker("Ryan");
+        Walker walker = new Walker("Ryan",1);
         walkerDao.add(walker);
         assertEquals(1, walkerDao.getAll().size());
     }
@@ -65,8 +63,19 @@ public class Sql2oWalkerDaoTest {
     }
 
     @Test
+    public void updateChangesWalkerName() throws Exception {
+        String initialWalkerName = "Ryan";
+        Walker walker = new Walker (initialWalkerName, 1);
+        walkerDao.add(walker);
+
+        walkerDao.update(walker.getId(),"Liam");
+        Walker updatedWalker = walkerDao.findById(walker.getId());
+        assertNotEquals(initialWalkerName, updatedWalker.getWalkerName());
+    }
+
+    @Test
     public void deleteByIdDeletesCorrectWalker() throws Exception {
-        Walker walker = new Walker("Ryan");
+        Walker walker = new Walker("Ryan",1);
         walkerDao.add(walker);
         walkerDao.deleteWalkerById(walker.getId());
         assertEquals(0, walkerDao.getAll().size());
@@ -74,7 +83,7 @@ public class Sql2oWalkerDaoTest {
 
     public void clearAllClearsAll() throws Exception {
         Walker walker = setupNewWalker();
-        Walker otherWalker = new Walker("Hogs");
+        Walker otherWalker = new Walker("Hogs",1);
         walkerDao.add(walker);
         walkerDao.add(otherWalker);
         int daoSize = walkerDao.getAll().size();
@@ -83,25 +92,17 @@ public class Sql2oWalkerDaoTest {
     }
 
     @Test
-    public void getAllDogByWalkerReturnsDogsCorrectly() throws Exception {
-        Walker walker = setupNewWalker();
+    public void dogIdIsReturnedCorrectly() throws Exception {
+        Walker walker = new Walker("Ryan",1);
+        int originalDogId = walker.getDogId();
         walkerDao.add(walker);
-        int walkerId = walker.getId();
-        Dog newDog = new Dog("Boss","","", walkerId);
-        Dog otherDog = new Dog("Jedi ","","", walkerId);
-        Dog thirdDog = new Dog("Cinderella","","", walkerId);
-        dogDao.add(newDog);
-        dogDao.add(otherDog);
-        assertTrue(walkerDao.getAllDogByWalker(walkerId).size() == 2);
-        assertTrue(walkerDao.getAllDogByWalker(walkerId).contains(newDog));
-        assertTrue(walkerDao.getAllDogByWalker(walkerId).contains(otherDog));
-        assertFalse(walkerDao.getAllDogByWalker(walkerId).contains(thirdDog));
+        assertEquals(originalDogId, walkerDao.findById(walker.getId()).getDogId());
     }
 
 
 
     //helper methods
     public Walker setupNewWalker() {
-        return new Walker("Ryan");
+        return new Walker("Ryan",1);
     }
 }

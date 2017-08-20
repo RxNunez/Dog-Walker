@@ -1,6 +1,5 @@
 package dao;
 
-import models.Dog;
 import models.Walker;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -18,12 +17,13 @@ public class Sql2oWalkerDao implements WalkerDao {
 
     @Override
     public void add(Walker walker) {
-        String sql = "INSERT INTO walker (walkerName) VALUES (:walkername)";
+        String sql = "INSERT INTO walker (walkerName, dogId) VALUES (:walkername, :dogId)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql)
                     .addParameter("walkername", walker.getWalkerName())
+                    .addParameter("dogId", walker.getDogId())
                     .addColumnMapping("WALKERNAME", "walkerName")
-                    .bind(walker)
+                    .addColumnMapping("DOGID", "dogId")
                     .executeUpdate()
                     .getKey();
             walker.setId(id);
@@ -41,16 +41,6 @@ public class Sql2oWalkerDao implements WalkerDao {
     }
 
     @Override
-    public List<Dog> getAllDogByWalker(int walkerId) {
-        try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM dog WHERE walkerId = :walkerid")
-                    .addParameter("walkerid", walkerId)
-                    .executeAndFetch(Dog.class);
-        }
-    }
-
-
-    @Override
     public Walker findById(int id) {
         try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM walker WHERE id = :id")
@@ -61,7 +51,7 @@ public class Sql2oWalkerDao implements WalkerDao {
 
     @Override
     public void update(int id, String newWalkerName) {
-        String sql = "UPDATE walker SET walkerName = :description WHERE id=:id";
+        String sql = "UPDATE walker SET (walkerName) = (:walkerName) WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("walkerName", newWalkerName)
@@ -83,7 +73,6 @@ public class Sql2oWalkerDao implements WalkerDao {
             System.out.println(ex);
         }
     }
-
 
     @Override
     public void clearAllWalker() {
