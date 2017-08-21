@@ -1,6 +1,7 @@
 package dao;
 
 import models.Walker;
+import models.Dog;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public interface WalkerDao {
 
     //read
     List<Walker> getAll();
+    List<Dog> getAllDogByWalker(int walkerId);
 
     //find
     Walker findById(int id);
