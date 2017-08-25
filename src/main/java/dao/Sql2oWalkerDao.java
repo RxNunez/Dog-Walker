@@ -18,7 +18,7 @@ public class Sql2oWalkerDao implements WalkerDao {
 
     @Override
     public void add(Walker walker) {
-        String sql = "INSERT INTO walker (walkerName, dogId) VALUES (:walkername, :dogId)";
+        String sql = "INSERT INTO walker (walkerName, dogId) VALUES (:walkername, :dogid)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql)
                     .addParameter("walkername", walker.getWalkerName())

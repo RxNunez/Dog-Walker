@@ -2,14 +2,15 @@
 
     {{#if editWalker}}
         <h1>Edit this Walker!</h1>
-        <form action="/walker/{{editWalker.id}}/update" method="walker">
+        <form action="/walkers/{{editWalker.id}}/update" method="post">
             <label for="walkerName">Edit this walkers name</label>
             <input id="walkerName" name="walkerName" type="text" value="{{editWalker.walkerName}}">
+        </form>
     {{else}}
 
             <h1>Add a new Walker!</h1>
 
-        <form action="/walker/new" method="walker">
+        <form action="/walkers/new" method="post">
             <label for="walkerName">Walker Name</label>
             <input id="walkerName" name="walkerName" type="text">
     {{/if}}
