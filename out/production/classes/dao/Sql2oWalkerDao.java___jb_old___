@@ -90,7 +90,7 @@ public class Sql2oWalkerDao implements WalkerDao {
     public List<Dog> getAllDogByWalker(int walkerId) {
         try (Connection con = sql2o.open()) {
             return con.createQuery("SELECT * FROM dog WHERE walkerId = :walkerid")
-                    .addParameter("walkerid", walkerId)
+                    .addParameter("walkerid", walkerid)
                     .executeAndFetch(Dog.class);
         }
 

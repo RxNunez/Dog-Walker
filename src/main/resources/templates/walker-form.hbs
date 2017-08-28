@@ -4,7 +4,9 @@
         <h1>Edit this Walker!</h1>
         <form action="/walkers/{{editWalker.id}}/update" method="post">
             <label for="walkerName">Edit this walkers name</label>
-            <input id="walkerName" name="walkerName" type="text" value="{{editWalker.walkerName}}">
+            <input id="walkerName" name="walkerName" type="text" placeholder ={{editWalker.walkerName}}>
+
+            <button type="submit" class="btn btn-default">Enter</button>
         </form>
     {{else}}
 
@@ -13,10 +15,10 @@
         <form action="/walkers/new" method="post">
             <label for="walkerName">Walker Name</label>
             <input id="walkerName" name="walkerName" type="text">
-    {{/if}}
-        <button type="submit" class="btn btn-default">Add new walker</button>
-    </form>
 
+        <button type="submit" class="btn btn-default">Add new walker</button>
+        </form>
+    {{/if}}
 {{/partial}}
 
 {{> layout.hbs}}

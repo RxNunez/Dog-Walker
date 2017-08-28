@@ -1,16 +1,19 @@
 {{#partial "content"}}
 
+
+
     <h1>Walker List</h1>
 
     {{#if walkers}}
         {{#each walkers}}
         <div class = "well">
-            <p>{{walkers}} <a href="/walkers/{{id}}"></a></p>
+            <p>{{walkerName}} <a href="/walkers{{Id}}"></a></p>
         </div>
         {{/each}}
     {{else}}
-    <p>No walkers!</p>
+    <p>No Walkers!</p>
     {{/if}}
+
 
 {{/partial}}
 

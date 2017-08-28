@@ -13,7 +13,7 @@ public interface WalkerDao {
 
     //read
     List<Walker> getAll();
-    List<Dog> getAllDogByWalker(int walkerId);
+    List<Dog> getAllDogByWalker(int walkerid);
 
     //find
     Walker findById(int id);

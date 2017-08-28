@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS dog (
   dogname VARCHAR,
   breed VARCHAR,
   color VARCHAR
+
 );
 
 CREATE TABLE IF NOT EXISTS walker (
