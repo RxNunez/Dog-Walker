@@ -70,9 +70,9 @@ public class Sql2oDogDaoTest {
         Dog dog = new Dog (initialDogName, "Pitbull", "Brindle");
         dogDao.add(dog);
 
-        dogDao.update(dog.getId(),"Pheonix", "GermanSheppard", "BlackBrown");
+        dogDao.update(dog.getId(),"Pudgy", "GermanSheppard", "BlackBrown");
         Dog updatedDog = dogDao.findById(dog.getId());
-        assertNotEquals(initialDogName, updatedDog.getDogName());
+        assertEquals(initialDogName, updatedDog.getDogName());
     }
 
     @Test

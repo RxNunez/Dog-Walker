@@ -18,7 +18,7 @@ public class Sql2oDogDao implements DogDao{
 
     @Override
     public void add(Dog dog) {
-        String sql = "INSERT INTO dog (dogname, breed, color) VALUES (:dogname, :breed, :color)";
+        String sql = "INSERT INTO dogs (dogname, breed, color) VALUES (:dogname, :breed, :color)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql)
                     .addParameter("dogname", dog.getDogName())
@@ -39,7 +39,7 @@ public class Sql2oDogDao implements DogDao{
     @Override
     public List<Dog> getAll() {
         try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM dog")
+            return con.createQuery("SELECT * FROM dogs")
                     .executeAndFetch(Dog.class);
         }
     }
@@ -47,7 +47,7 @@ public class Sql2oDogDao implements DogDao{
     @Override
     public Dog findById(int id) {
         try(Connection con = sql2o.open()){
-            return con.createQuery("SELECT * FROM dog WHERE id = :id")
+            return con.createQuery("SELECT * FROM dogs WHERE id = :id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Dog.class);
         }
@@ -55,7 +55,7 @@ public class Sql2oDogDao implements DogDao{
 
     @Override
     public void update(int id, String newDogName, String newBreed, String newColor){
-        String sql = "UPDATE dog SET (dogname, breed, color) = (:dogname, :breed, :color) WHERE id=:id";
+        String sql = "UPDATE dogs SET (dogname, breed, color) = (:dogname, :breed, :color) WHERE id=:id";
         try(Connection con = sql2o.open()){
             con.createQuery(sql)
                     .addParameter("dogname", newDogName)
@@ -70,7 +70,7 @@ public class Sql2oDogDao implements DogDao{
 
     @Override
     public void deleteDogById(int id) {
-        String sql = "DELETE from dog WHERE id=:id";
+        String sql = "DELETE from dogs WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
@@ -82,7 +82,7 @@ public class Sql2oDogDao implements DogDao{
 
     @Override
     public void clearAllDog() {
-        String sql = "DELETE from dog";
+        String sql = "DELETE from dogs";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .executeUpdate();
@@ -94,7 +94,7 @@ public class Sql2oDogDao implements DogDao{
     @Override
     public List<Walker> getAllWalkerByDog(int dogId) {
         try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM walker WHERE dogId = :dogid")
+            return con.createQuery("SELECT * FROM walkers WHERE dogId = :dogid")
                     .addParameter("dogid", dogId)
                     .executeAndFetch(Walker.class);
         }

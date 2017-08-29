@@ -1,8 +1,8 @@
 {{#partial "content"}}
 
     {{#if editDog}}
+        <form action="/walkers/{{walkerIdOfDogToEdit}}/dogs/{{idOfDogToEdit}}/update" method="post">
         <h1>Edit this Dog!</h1>
-        <form action="/dogs/{{editDog.id}}/update" method="post" >
 
            <label for="dogname">Edit this dog's name</label>
             <input id="dogname" name="dogname" type="text" placeholder={{editDog.dogName}}>
@@ -12,43 +12,56 @@
             <br>
             <label for="color">Dog color</label>
             <input id="color" name="color" type="text"placeholder={{editDog.color}} >
-            <br>
-            <label for="walkerid">Update this dog's walker:</label>
-            <select id="walkerid" name="walkername">
 
                 {{#each walkers}}
-                    <option value="{{id}}">{{walkername}}</option>
+                    <option value="{{walkerid}}">{{walkername}}</option>
                 {{/each}}
             </select>
             <p>Don't see the right walker?<a href="/walkers/new">Add a new one first.</a></p>
         </form>
 
-    {{ifelse}}
+    {{else}}
         <h2>Add a new Dog!</h2>
 
         <form action="/dogs/new" method="post">
+        {{#if walkers}}
                 <label for="dogname">Edit this dog's name</label>
                 <input id="dogname" name="dogname" type="text" placeholder="Enter a new dogname">
                 <br>
                 <label for="breed">Edit this dog's breed</label>
                 <input id="breed" name="breed" type="text" placeholder="Enter a new breed">
                 <br>
-                <label for="color">Weed color</label>
+                <label for="color">Edit this dog's color</label>
                 <input id="color" name="color" type="text">
                 <br>
-                <label for="walkerid">Update this dog's walker:</label>
-                <select id="walkerid" name="walkerId">
-                    {{#each walkers}}
-                        <option value="{{id}}">{{walkername}}</option>
-                    {{/each}}
-                </select>
-                <p>Don't see the right walker?<a href="/walkers/new">Add a new one first.</a></p>
+                <button type="submit" class="btn btn-default">Submit!</button>
+                <br>
+
+            </form>
         {{else}}
-                <h3> You'll need to add a walker before you add a dog. <a href="/walkers/new">Add one here.</a> </h3>
+
+            <form action="/dogs/new" method="post">
+
+                <label for="dogname">Edit this dog's name</label>
+                <input id="dogname" name="dogname" type="text" placeholder="Enter a new dogname">
+                <br>
+                <label for="breed">Edit this dog's breed</label>
+                <input id="breed" name="breed" type="text" placeholder="Enter a new breed">
+                <br>
+                <label for="color">Edit this dog's color</label>
+                <input id="color" name="color" type="text">
+                <br>
+
+                <label for="teamId">Choose this member's team:</label>
+
+            <select id="walkerid" name="walkerid">
+                {{#each walkers}}
+                    <option value="{{id}}" {{#selected}}selected="selected"{{/selected}}>{{walkername}}</option>
+                {{/each}}
+            </select>
         {{/if}}
 
-
-
+    {{/if}}
 
         <button type="submit" class="btn btn-default">Submit!</button>
     </form>

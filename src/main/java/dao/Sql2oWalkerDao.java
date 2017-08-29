@@ -18,7 +18,7 @@ public class Sql2oWalkerDao implements WalkerDao {
 
     @Override
     public void add(Walker walker) {
-        String sql = "INSERT INTO walker (walkerName, dogId) VALUES (:walkername, :dogid)";
+        String sql = "INSERT INTO walkers (walkerName, dogId) VALUES (:walkername, :dogid)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql)
                     .addParameter("walkername", walker.getWalkerName())
@@ -36,7 +36,7 @@ public class Sql2oWalkerDao implements WalkerDao {
     @Override
     public List<Walker> getAll() {
         try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM walker")
+            return con.createQuery("SELECT * FROM walkers")
                     .executeAndFetch(Walker.class);
         }
     }
@@ -44,7 +44,7 @@ public class Sql2oWalkerDao implements WalkerDao {
     @Override
     public Walker findById(int id) {
         try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM walker WHERE id = :id")
+            return con.createQuery("SELECT * FROM walkers WHERE id = :id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Walker.class);
         }
@@ -52,7 +52,7 @@ public class Sql2oWalkerDao implements WalkerDao {
 
     @Override
     public void update(int id, String newWalkerName) {
-        String sql = "UPDATE walker SET (walkerName) = (:walkerName) WHERE id=:id";
+        String sql = "UPDATE walkers SET (walkerName) = (:walkerName) WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("walkerName", newWalkerName)
@@ -65,7 +65,7 @@ public class Sql2oWalkerDao implements WalkerDao {
 
     @Override
     public void deleteWalkerById(int id) {
-        String sql = "DELETE from walker WHERE id=:id";
+        String sql = "DELETE from walkers WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
@@ -77,7 +77,7 @@ public class Sql2oWalkerDao implements WalkerDao {
 
     @Override
     public void clearAllWalker() {
-        String sql = "DELETE from walker";
+        String sql = "DELETE from walkers";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .executeUpdate();
@@ -89,7 +89,7 @@ public class Sql2oWalkerDao implements WalkerDao {
     @Override
     public List<Dog> getAllDogByWalker(int walkerId) {
         try (Connection con = sql2o.open()) {
-            return con.createQuery("SELECT * FROM dog WHERE walkerId = :walkerid")
+            return con.createQuery("SELECT * FROM dogs WHERE walkerId = :walkerid")
                     .addParameter("walkerid", walkerId)
                     .executeAndFetch(Dog.class);
         }

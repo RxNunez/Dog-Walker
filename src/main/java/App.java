@@ -26,28 +26,23 @@ public class App {
         Sql2oWalkerDao walkerDao = new Sql2oWalkerDao(sql2o);
         Sql2oDogDao dogDao = new Sql2oDogDao(sql2o);
 
-        // delete all walkers
-        get("/walkers/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            walkerDao.clearAllWalker();
-            return new ModelAndView(model, "success.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        // delete all dogs
-        get("/dogs/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            dogDao.clearAllDog();
-            return new ModelAndView(model, "success.hbs");
-        }, new HandlebarsTemplateEngine());
-
         // home page
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Walker> walkers = walkerDao.getAll();
-            model.put("walkers", walkers);
+            List<Walker> allWalkers = walkerDao.getAll();
+            model.put("walkers", allWalkers);
             List<Dog> dogs = dogDao.getAll();
-            model.put("dog",dogs);
+            model.put("dogs",dogs);
             return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/walkers/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            dogDao.clearAllDog();
+            walkerDao.clearAllWalker();
+            List<Walker> allWalker = walkerDao.getAll();
+            model.put("walkers", allWalker);
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
 
@@ -58,52 +53,47 @@ public class App {
             return new ModelAndView(model, "walker-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-
         post("/walkers/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String walkerName = request.queryParams("walkerName");
             Walker newWalker = new Walker(walkerName, 1);
             walkerDao.add(newWalker);
             List<Walker> walkers = walkerDao.getAll();
-            model.put("walkers", newWalker);
+            model.put("walkers", walkers);
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
-
-        get("/walkers/:walkerId/dogs/:dogid", (req, res) ->  {
+        get("/walkers/:walkerid", (req, res) ->  {
             Map<String, Object> model = new HashMap<>();
-            int idOfWalkerToFind = Integer.parseInt(req.params("walkerid"));
+            int idOfWalkerToFind = Integer.parseInt(req.params("id"));
             List<Walker> walkers = walkerDao.getAll();
             model.put("walkers", walkers);
             Walker foundWalker = walkerDao.findById(idOfWalkerToFind);
-            model.put("walkers", foundWalker);
-            List<Dog> allDogByWalker = walkerDao.getAllDogByWalker(idOfWalkerToFind);
-            model.put("dogs", allDogByWalker);
+            model.put("walker", foundWalker);
+            List<Dog> AllDogByWalker = walkerDao.getAllDogByWalker(idOfWalkerToFind);
+            model.put("dogs", AllDogByWalker);
             return new ModelAndView(model, "walker-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
-
         get("/walkers/:walkerid/update", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfWalkerToEdit = Integer.parseInt(req.params("walkerid"));
-            Walker editWalker = walkerDao.findById(idOfWalkerToEdit);
-            model.put("editWalker", editWalker);
-            List<Walker> walkers = walkerDao.getAll();
-            model.put("walkers", walkers);
+            int thisId = Integer.parseInt(req.params("walkerid"));
+            model.put("editWalker", true);
+            List<Walker> allWalkers = walkerDao.getAll();
+            model.put("walkers", allWalkers);
             return new ModelAndView(model, "walker-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-
         post("/walkers/update", (req,res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfWalkerToEdit = Integer.parseInt(req.params("walkerid"));
-            String newWalkerName = req.queryParams("walkerName");
-            walkerDao.update(walkerDao.findById(idOfWalkerToEdit).getId(), newWalkerName);
-            List<Walker> walkers = walkerDao.getAll();
-            model.put("walkers", walkers);
+            int idOfWalkerToEdit = Integer.parseInt(req.queryParams("editWalkerId"));
+            String newName = req.queryParams("newWalkerName");
+            walkerDao.update(walkerDao.findById(idOfWalkerToEdit).getId(), newName);
+            List<Walker> allWalkers = walkerDao.getAll();
+            List<Dog> dogs = dogDao.getAll();
+            model.put("walkers", allWalkers);
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
-
 
         get("walkers/:walkerid/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -113,19 +103,22 @@ public class App {
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
-
         get("/dogs/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Dog> allDog = dogDao.getAll();
-            model.put("dogs", allDog);
+            List<Walker> allWalkers = walkerDao.getAll();
+            List<Dog> dogs = dogDao.getAll();
+            model.put("walkers",allWalkers);
+            model.put("dogs", dogs);
             return new ModelAndView(model, "dog-form.hbs");
         }, new HandlebarsTemplateEngine());
 
 
         post("/dogs/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Walker> allWalker = walkerDao.getAll();
-            model.put("walkers", allWalker);
+            List<Walker> walkers = walkerDao.getAll();
+            model.put("walkers", walkers);
+            String walkerName= request.queryParams("walkerName");
+            int walkerId = Integer.parseInt(request.queryParams("walkerId"));
             String dogName = request.queryParams("dogname");
             String breed = request.queryParams("breed");
             String color = request.queryParams("color");
@@ -135,55 +128,61 @@ public class App {
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
-
-        get("/walkers/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            dogDao.clearAllDog();
-            walkerDao.clearAllWalker();
-            List<Walker> allWalker = walkerDao.getAll();
-            model.put("walkers", allWalker);
-            return new ModelAndView(model, "success.hbs");
-        }, new HandlebarsTemplateEngine());
-
-
-        get("walkers/:walkerid/dog/:dogid", (req, res) -> {
+        get("walkers/:walkerid/dogs/:dogid", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int idOfDogToFind = Integer.parseInt(req.params("dogId"));
             Dog foundDog = dogDao.findById(idOfDogToFind);
-            model.put("dogs", foundDog);
+            model.put("dog", foundDog);
             return new ModelAndView(model, "dog-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
-
-        get("/dogs/:dogid/update", (req, res) -> {
+        get("/walkers/:id/dogs/:dogid/update", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfDogToEdit = Integer.parseInt(req.params("dogid"));
+            int walkeridOfDogToEdit = Integer.parseInt(req.params("dogid"));
+            int idOfDogToEdit = Integer.parseInt(req.params("id"));
             Dog editDog = dogDao.findById(idOfDogToEdit);
-            model.put("editDog", editDog);
+            model.put("editDog", true);
+            model.put("walkeridOfDogToEdit", walkeridOfDogToEdit);
+            List<Dog> allDogs = dogDao.getAll();
+            List<Walker> allWalkers = walkerDao.getAll();
+            model.put("idOfDogToEdit", idOfDogToEdit);
+            model.put("dogs", allDogs);
+            model.put("walkers", allWalkers);
             return new ModelAndView(model, "dog-form.hbs");
         }, new HandlebarsTemplateEngine());
 
 
-        post("/dogs/:dogid/update", (request, response) -> {
+        post("/walkers/:id/dogs/:dogid/update", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            String dogName = request.queryParams("dogname");
-            String breed = request.queryParams("breed");
-            String color = request.queryParams("color");
-            int idOfDogToEdit = Integer.parseInt(request.params("dogid"));
+            String dogName = req.queryParams("dogname");
+            String breed = req.queryParams("breed");
+            String color = req.queryParams("color");
+            int walkerIdOfDogToEdit = Integer.parseInt(req.params("id"));
+            int idOfDogToEdit = Integer.parseInt(req.params("dogid"));
             Dog editDog = dogDao.findById(idOfDogToEdit);
             dogDao.update(idOfDogToEdit,dogName,breed,color);
+            model.put("idOfDogToEdit", idOfDogToEdit);
+            model.put("walkerIdOfDogToEdit", walkerIdOfDogToEdit);
             return new ModelAndView(model, "success.hbs");
          }, new HandlebarsTemplateEngine());
 
-
-        get("walkers/:walkerid/dog/:dogid/delete", (req, res) -> {
+        get("walkers/:id/dogs/:dogid/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+            int walkerIdOfDogToDelete = Integer.parseInt(req.params("id"));
             int idOfDogToDelete = Integer.parseInt(req.params("dogid"));
             Dog deleteDog = dogDao.findById(idOfDogToDelete);
             dogDao.deleteDogById(idOfDogToDelete);
+            List<Dog> dogs = dogDao.getAll();
+            model.put("dogs", dogs);
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
 
+        // delete all dogs
+        get("/dogs/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            dogDao.clearAllDog();
+            return new ModelAndView(model, "success.hbs");
+        }, new HandlebarsTemplateEngine());
     }
 }
