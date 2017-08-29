@@ -2,10 +2,11 @@
     {{#if editDog}}
         <form action="/walkers/{{editDog.walkerId}}/dogs/{{editDog.id}}/update" method="post">
             <h1>Edit this Dog!</h1>
-
-            <div class="form-group">
-                <label for="walkers">Walker Name:{{walker.walkerName}}</label>
-            </div>
+            <select id="dogToEditId" name="dogToEditId">
+        {{#each dogs }}
+            <option value="{{id}}">{{dogname}}</option>
+        {{/each}}
+            </select>
             <br>
             <label for="dogname">Edit this dog's name</label>
             <input id="dogname" name="dogname" type="text" placeholder={{editDog.dogName}}>
@@ -15,6 +16,13 @@
             <br>
             <label for="color">Dog color</label>
             <input id="color" name="color" type="text"placeholder={{editDog.color}} >
+            <br>
+            <label for="walkerId">Update this dog's walker:</label>
+            <input id="walkername" name="walkername"type="text"placeholder={{editWalker.walkername}}>
+
+
+            <p>Don't see the right store?<a href="/walkers/new">Add a new one first.</a></p>
+
 
             <button type="submit" class="btn btn-default">Enter</button>
             <p>Don't see the right walker?<a href="/walkers/new">Add a new one first.</a></p>
@@ -25,6 +33,7 @@
 
 
         <form action="/dogs/new" method="post">
+            {{#if walkers}}
 
             <label for="dogname">Edit this dog's name</label>
             <input id="dogname" name="dogname" type="text" placeholder="Enter a new dogname">
@@ -36,10 +45,19 @@
             <input id="color" name="color" type="text">
             <br>
             <button type="submit" class="btn btn-default">Submit!</button>
+            <br>
+            <label for="walkerId">Update this dog's walker:</label>
+            <input id="walkername" name="walkername"type="text"placeholder={{/walkers}}>
+            <p>Don't see the right walker?<a href="/walkers/new">Add a new one first.</a></p>
+            {{else}}
+                <h3> You'll need to add a walker before you add a dog. <a href="/walkers/new">Add one here.</a> </h3>
+            {{/if}}
+
+    {{/if}}
+        <button type="submit" class="btn btn-default">Go!</button>
 
         </form>
 
-    {{/if}}
 
 
 {{/partial}}

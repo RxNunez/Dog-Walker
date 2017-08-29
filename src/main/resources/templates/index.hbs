@@ -1,32 +1,15 @@
 {{#partial "content"}}
 
 
+    <p>Current Walkers:</p>
+    {{#if walkers}}
 
-    <div class="row well">
-        <div class="col-md-8">
-       <h1>Walker Registry:</h1>
-           {{#if walkers}}
-                   <br>
-                    <ol>
-                    {{#each walkers}}
-                        <li class="walker"><a href="/walkers/{{id}}" class="walker-list">{{walkerName}}</a> <p class ="btn btn-default btn-xs"><a href="/walkers/{{id}}/delete">Delete walker</a></p></li>
-                            <br>
-                        {{#each dogs}}
-                        <li class="dog"><a href="/dogs/{{dogid}}" class="dog-list">{{dogName}}</a> </li>
-                            <p class ="btn btn-default btn-xs"><a href="/dogs/{{dogid}}/delete">Delete dog</a></p>
-                        </li>
-                    {{/each}}
-                    {{/each}}
-                    </ol>
-                </div>
-               </div>
-           {{/if}}
+        {{#each walkers }}
+            <p>{{walkerName}}<a href="/walkers/{{walkerId}}/dogs/{{dog.id}}"></a></p>
+        {{/each}}
     {{else}}
-    <p>No Walkers!</p>
-    <br>
-
-
-
+        <p>No Walkers!</p>
+    {{/if}}
 {{/partial}}
 
 {{> layout.hbs}}
