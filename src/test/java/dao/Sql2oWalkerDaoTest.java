@@ -80,7 +80,7 @@ public class Sql2oWalkerDaoTest {
         walkerDao.deleteWalkerById(walker.getId());
         assertEquals(0, walkerDao.getAll().size());
     }
-
+    @Test
     public void clearAllClearsAll() throws Exception {
         Walker walker = setupNewWalker();
         Walker otherWalker = new Walker("Hogs");
