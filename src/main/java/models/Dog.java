@@ -5,13 +5,16 @@ public class Dog {
     private String dogName;
     private String breed;
     private String color;
+    private int walkerId;
     private int id;
 
 
-    public Dog(String dogName, String breed, String color) {
+
+    public Dog(String dogName, String breed, String color, int walkerId) {
         this.dogName = dogName;
         this.breed = breed;
         this.color = color;
+        this.walkerId = walkerId;
     }
 
     public String getDogName() {
@@ -38,6 +41,14 @@ public class Dog {
         this.color = color;
     }
 
+    public int getWalkerId() {
+        return walkerId;
+    }
+
+    public void setWalkerId(int walkerId) {
+        this.walkerId = walkerId;
+    }
+
     public int getId() {
         return id;
     }
@@ -57,6 +68,7 @@ public class Dog {
         if (id != dog.id) return false;
         if (breed != dog.breed) return false;
         if (color != dog.color) return false;
+        if (walkerId != dog.walkerId) return false;
         return dogName.equals(dog.dogName);
     }
 
@@ -65,6 +77,7 @@ public class Dog {
         int result = dogName.hashCode();
         result = 31 * result + breed.hashCode();
         result = 31 * result + color.hashCode();
+        result = 31 * result + walkerId;
         result = 31 * result + id;
         return result;
     }

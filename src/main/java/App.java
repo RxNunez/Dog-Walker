@@ -56,7 +56,7 @@ public class App {
         post("/walkers/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String walkerName = request.queryParams("walkerName");
-            Walker newWalker = new Walker(walkerName, 1);
+            Walker newWalker = new Walker(walkerName);
             walkerDao.add(newWalker);
             List<Walker> walkers = walkerDao.getAll();
             model.put("walkers", walkers);
@@ -122,7 +122,7 @@ public class App {
             String dogName = request.queryParams("dogname");
             String breed = request.queryParams("breed");
             String color = request.queryParams("color");
-            Dog newDog = new Dog(dogName, breed, color);
+            Dog newDog = new Dog(dogName, breed, color, walkerId);
             dogDao.add(newDog);
             model.put("dogs", newDog);
             return new ModelAndView(model, "success.hbs");
@@ -157,10 +157,11 @@ public class App {
             String dogName = req.queryParams("dogname");
             String breed = req.queryParams("breed");
             String color = req.queryParams("color");
+            int walkerId = Integer.parseInt(req.queryParams("walkerid"));
             int walkerIdOfDogToEdit = Integer.parseInt(req.params("id"));
             int idOfDogToEdit = Integer.parseInt(req.params("dogid"));
             Dog editDog = dogDao.findById(idOfDogToEdit);
-            dogDao.update(idOfDogToEdit,dogName,breed,color);
+            dogDao.update(idOfDogToEdit,dogName,breed,color, walkerId);
             model.put("idOfDogToEdit", idOfDogToEdit);
             model.put("walkerIdOfDogToEdit", walkerIdOfDogToEdit);
             return new ModelAndView(model, "success.hbs");

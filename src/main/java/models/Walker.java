@@ -8,14 +8,14 @@ public class Walker {
     private String walkerName;
     private boolean completed;
     private int id;
-    private int dogId;
 
 
 
-    public Walker(String walkerName, int dogId) {
+
+    public Walker(String walkerName) {
         this.walkerName = walkerName;
         this.completed = false;
-        this.dogId = dogId;
+
 
     }
     public void setWalkerName (String walkerName) {
@@ -32,14 +32,6 @@ public class Walker {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
-    }
-
-    public int getDogId() {
-        return dogId;
-    }
-
-    public void setDogId(int dogId) {
-        this.dogId = dogId;
     }
 
     public String getWalkerName() {
@@ -64,7 +56,6 @@ public class Walker {
 
         if (completed != walker.completed) return false;
         if (id != walker.id) return false;
-        if (dogId != walker.dogId) return false;
         return walkerName.equals(walker.walkerName);
     }
 
@@ -73,7 +64,6 @@ public class Walker {
         int result = walkerName.hashCode() ;
         result = 31 * result + (completed ? 1 : 0);
         result = 31 * result + id;
-        result = 31 * result + dogId;
         return result;
     }
 

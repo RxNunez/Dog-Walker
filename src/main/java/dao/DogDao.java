@@ -19,7 +19,7 @@ public interface DogDao {
     Dog findById(int id);
 
     //update
-    void update(int id, String dogName, String breed, String color);
+    void update(int id, String dogName, String breed, String color, int walkerId);
 
     //delete
     void deleteDogById(int id);

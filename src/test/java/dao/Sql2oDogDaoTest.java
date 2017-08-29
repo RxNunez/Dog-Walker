@@ -38,7 +38,7 @@ public class Sql2oDogDaoTest {
 
     @Test
     public void addingCourseSetsId() throws Exception {
-        Dog dog = new Dog("Pudgy","Pitbull","Brindle");
+        Dog dog = new Dog("Pudgy","Pitbull","Brindle",1);
         int originalDogId = dog.getId();
         dogDao.add(dog);
         assertNotEquals(originalDogId, dog.getId());
@@ -46,7 +46,7 @@ public class Sql2oDogDaoTest {
 
     @Test
     public void existingDogsCanBeFoundById() throws Exception {
-        Dog dog = new Dog("Pudgy","Pitbull","Brindle");
+        Dog dog = new Dog("Pudgy","Pitbull","Brindle",1);
         dogDao.add(dog);
         Dog foundDog = dogDao.findById(dog.getId());
         assertEquals(dog, foundDog);
@@ -54,7 +54,7 @@ public class Sql2oDogDaoTest {
 
     @Test
     public void addedDogsAreReturnedFromGetAll() throws Exception {
-        Dog dog = new Dog("Pudgy","Pitbull","Brindle");
+        Dog dog = new Dog("Pudgy","Pitbull","Brindle",1);
         dogDao.add(dog);
         assertEquals(1, dogDao.getAll().size());
     }
@@ -67,17 +67,17 @@ public class Sql2oDogDaoTest {
     @Test
     public void updateChangesDogName() throws Exception {
         String initialDogName = "Pudgy";
-        Dog dog = new Dog (initialDogName, "Pitbull", "Brindle");
+        Dog dog = new Dog (initialDogName, "Pitbull", "Brindle", 1);
         dogDao.add(dog);
 
-        dogDao.update(dog.getId(),"Pudgy", "GermanSheppard", "BlackBrown");
+        dogDao.update(dog.getId(),"Pudgy", "GermanSheppard", "BlackBrown", 1);
         Dog updatedDog = dogDao.findById(dog.getId());
         assertEquals(initialDogName, updatedDog.getDogName());
     }
 
     @Test
     public void deleteByIdDeletesCorrectDog() throws Exception {
-        Dog dog = new Dog("Pudgy","Pitbull","Brindle");
+        Dog dog = new Dog("Pudgy","Pitbull","Brindle",1);
         dogDao.add(dog);
         dogDao.deleteDogById(dog.getId());
         assertEquals(0, dogDao.getAll().size());
@@ -86,7 +86,7 @@ public class Sql2oDogDaoTest {
     @Test
     public void clearAllClearsAll() throws Exception {
         Dog dog = setupNewDog();
-        Dog otherDog = new Dog("Pheonix", "German Sheppard", "BlackBrown");
+        Dog otherDog = new Dog("Pheonix", "German Sheppard", "BlackBrown",1);
         dogDao.add(dog);
         dogDao.add(otherDog);
         int daoSize = dogDao.getAll().size();
@@ -94,25 +94,11 @@ public class Sql2oDogDaoTest {
         assertTrue(daoSize > 0 && daoSize > dogDao.getAll().size());
     }
 
-    @Test
-    public void getAllWalkerByDogReturnsWalkersCorrectly() throws Exception {
-        Dog dog = setupNewDog();
-        dogDao.add(dog);
-        int dogId = dog.getId();
-        Walker newWalker = new Walker("Ryan", dogId);
-        Walker otherWalker = new Walker("Liam", dogId);
-        Walker thirdWalker = new Walker("Hallie", dogId);
-        walkerDao.add(newWalker);
-        walkerDao.add(otherWalker);
-        assertTrue(dogDao.getAllWalkerByDog(dogId).size() == 2);
-        assertTrue(dogDao.getAllWalkerByDog(dogId).contains(newWalker));
-        assertTrue(dogDao.getAllWalkerByDog(dogId).contains(otherWalker));
-        assertFalse(dogDao.getAllWalkerByDog(dogId).contains(thirdWalker));
-    }
+
 
         //helper methods
     public Dog setupNewDog() {
-        return new Dog("Pudgy","Pitbull","Brindle");
+        return new Dog("Pudgy","Pitbull","Brindle",1);
 
 
     }
