@@ -1,14 +1,13 @@
 {{#partial "content"}}
-
     {{#if editDog}}
-        <form action="/walkers/{{walkerIdOfDogToEdit}}/dogs/{{idOfDogToEdit}}/update" method="post">
-        <h1>Edit this Dog!</h1>
+        <form action="/walkers/{{editDog.walkerId}}/dogs/{{editDog.id}}/update" method="post">
+            <h1>Edit this Dog!</h1>
 
             <div class="form-group">
-                    <label for="walker">Walker Name:&nbsp;{{walker.walkerName}}</label>
+                <label for="walkers">Walker Name:{{walker.walkerName}}</label>
             </div>
             <br>
-           <label for="dogname">Edit this dog's name</label>
+            <label for="dogname">Edit this dog's name</label>
             <input id="dogname" name="dogname" type="text" placeholder={{editDog.dogName}}>
             <br>
             <label for="breed">Edit this dog's breed</label>
@@ -17,43 +16,30 @@
             <label for="color">Dog color</label>
             <input id="color" name="color" type="text"placeholder={{editDog.color}} >
 
-                <button type="submit" class="btn btn-default">Enter</button>
+            <button type="submit" class="btn btn-default">Enter</button>
             <p>Don't see the right walker?<a href="/walkers/new">Add a new one first.</a></p>
         </form>
 
     {{else}}
         <h2>Add a new Dog!</h2>
 
-        <div class="form-group">
-                        <label for="walker">Walker Name:</label>
-                        <select id="walker" name="walker" required>
-                            {{#each walkerss}}
-                                <option value="{{this.id}}">{{this.name}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
 
         <form action="/dogs/new" method="post">
-        {{#if walkers}}
-                <label for="dogname">Edit this dog's name</label>
-                <input id="dogname" name="dogname" type="text" placeholder="Enter a new dogname">
-                <br>
-                <label for="breed">Edit this dog's breed</label>
-                <input id="breed" name="breed" type="text" placeholder="Enter a new breed">
-                <br>
-                <label for="color">Edit this dog's color</label>
-                <input id="color" name="color" type="text">
-                <br>
-                <button type="submit" class="btn btn-default">Submit!</button>
-                <br>
-                <button type="submit" class="btn btn-default">Enter</button>
-            </form>
 
-        {{/if}}
+            <label for="dogname">Edit this dog's name</label>
+            <input id="dogname" name="dogname" type="text" placeholder="Enter a new dogname">
+            <br>
+            <label for="breed">Edit this dog's breed</label>
+            <input id="breed" name="breed" type="text" placeholder="Enter a new breed">
+            <br>
+            <label for="color">Edit this dog's color</label>
+            <input id="color" name="color" type="text">
+            <br>
+            <button type="submit" class="btn btn-default">Submit!</button>
 
+        </form>
 
-
-
+    {{/if}}
 
 
 {{/partial}}

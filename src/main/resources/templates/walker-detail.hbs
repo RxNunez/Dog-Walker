@@ -1,13 +1,14 @@
 {{#partial "content"}}
     <p>Walker:</p>
-    <p>{{ walkers.walkerName }}</p>
+    <p>{{ walkers.walkername }}</p>
     <h5>Dogs :</h5>
     <p>
         {{#if dogs }}
             {{#each dogs}}
-                    <li class="edit-dog">{{dogName}}
-                        <p class ="btn btn-default"><a href="/walkers/{{this.walkerId}}/dogs/{{this.id}}/update">Edit dog</a></p>
-                        <p class ="btn btn-default"><a href="/walkers/{{this.walkerId}}/dogs/{{this.id}}/delete">Delete dog</a></p></li>
+                    <li class="edit-dog">{{dogname}}
+                        <p class ="btn btn-success"><a href="/walkers/{{this.walkerId}}/dogs/{{this.id}}/update">Edit dog</a></p>
+                <br>
+                        <p class ="btn btn-success"><a href="/walkers/{{this.walkerId}}/dogs/{{this.id}}/delete">Delete dog</a></p></li>
             {{/each}}
             <br>
             <p>No dog assigned!</p>
