@@ -23,7 +23,7 @@ public class App {
 
     public static void main(String[] args) {
         staticFileLocation("/public");
-        String connectionString = "jdbc:h2:~/dog-walker.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
+        String connectionString = "jdbc:h2:~/dog-walkers.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
         Sql2o sql2o = new Sql2o(connectionString, "", "");
         Sql2oWalkerDao walkerDao = new Sql2oWalkerDao(sql2o);
         Sql2oDogDao dogDao = new Sql2oDogDao(sql2o);
@@ -91,7 +91,7 @@ public class App {
         post("/walkers/:id/update", (req,res) -> {
             Map<String, Object> model = new HashMap<>();
             String walkerName = req.queryParams("walkerName");
-            int id = Integer.parseInt(req.queryParams("id"));
+            int id = Integer.parseInt(req.params("id"));
             walkerDao.update(id, walkerName);
             List<Dog> dogs = dogDao.getAll();
             model.put("dogs", dogs);
@@ -99,8 +99,6 @@ public class App {
             model.put("walkers", walkers);
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
-
-
 
         get("walkers/:walkerId/dogs/:id", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
@@ -144,8 +142,6 @@ public class App {
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
-
-
         get("/walkers/:id", (req, res) ->  {
             Map<String, Object> model = new HashMap<>();
             Walker foundWalker = walkerDao.findById(Integer.parseInt(req.params("id")));
@@ -166,6 +162,8 @@ public class App {
             model.put("dogs", dogs);
             return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
+
+
 
 
     }
