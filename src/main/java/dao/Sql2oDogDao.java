@@ -29,7 +29,6 @@ public class Sql2oDogDao implements DogDao{
                     .addColumnMapping("BREED", "breed")
                     .addColumnMapping("COLOR", "color")
                     .addColumnMapping("WALKERID", "walkerid")
-                    .bind(dog)
                     .executeUpdate()
                     .getKey();
             dog.setId(id);
@@ -64,7 +63,7 @@ public class Sql2oDogDao implements DogDao{
                     .addParameter("breed", newBreed)
                     .addParameter("color", newColor)
                     .addParameter("walkerid", newWalkerId)
-//                    .addParameter("id", id)
+                    .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {
             System.out.println(ex);

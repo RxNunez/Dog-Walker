@@ -50,7 +50,7 @@ public class Sql2oWalkerDao implements WalkerDao {
 
     @Override
     public void update(int id, String newWalkerName) {
-        String sql = "UPDATE walkers SET (walkerName) = (:walkerName) WHERE id=:id";
+        String sql = "UPDATE walkers SET walkerName = :walkerName WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("walkerName", newWalkerName)
