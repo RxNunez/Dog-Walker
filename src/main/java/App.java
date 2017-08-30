@@ -121,12 +121,12 @@ public class App {
         post("/walkers/:walkerId/dogs/:id/update", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String walker = req.queryParams("walker");
-            String dogName = req.queryParams("dogname");
+            String dogName = req.queryParams("dogName");
             String breed = req.queryParams("breed");
             String color = req.queryParams("color");
             int id = Integer.parseInt(req.params("id"));
             int walkerId = Integer.parseInt(req.params("walkerid"));
-            dogDao.update(1, dogName, breed, color, 1);
+            dogDao.update(id, dogName, breed, color, walkerId);
             List<Dog> dogs = dogDao.getAll();
             model.put("dogs", dogs);
            return new ModelAndView(model, "success.hbs");
